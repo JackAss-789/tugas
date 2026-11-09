@@ -1,6 +1,6 @@
-# Sentra Minimarket — Smart Retail Demo V2
+# Sentra Minimarket — Smart Retail Demo V3
 
-Website statis satu toko, dijalankan dengan membuka `index.html` atau deploy ke Vercel (framework: Other / output root).
+Website statis satu toko dengan tipografi Plus Jakarta Sans, tata letak responsif, dan tema biru–putih–kuning. Buka `index.html` di browser atau gunakan URL deploy Vercel (framework: Other / output root).
 
 ## Yang tersedia
 - Katalog 30 SKU data contoh, pencarian, kategori, pengurutan, filter stok.
@@ -24,3 +24,9 @@ Website statis satu toko, dijalankan dengan membuka `index.html` atau deploy ke 
 
 ## Lanjutan menuju produksi
 Gunakan backend Postgres/Supabase atau setara, role-based access control, server-side transaction commit atomik, audit logs, payment gateway QRIS sandbox dan signature verifier, manajemen aset berizin, dan uji printer/HP asli.
+
+## Verifikasi versi V3
+- HTML dan JavaScript berhasil diperiksa secara lokal.
+- Playwright Chromium desktop dan mobile: 30 kartu produk, keranjang, pembayaran tunai simulasi, struk, laporan/CSV, antrean, edit produk, dan persistensi localStorage **lulus**.
+- Uji printer fisik, transaksi QRIS nyata, pengiriman WA oleh provider dan pengalaman aksesibilitas lintas-perangkat **belum dilakukan**.
+- GitHub `JackAss-789/tugas` merupakan sumber file; deploy Vercel menggunakan unggahan file langsung karena integrasi GitHub lintas-akun belum diberikan izin. Pembaruan GitHub tidak otomatis men-deploy Vercel.
