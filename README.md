@@ -1,32 +1,29 @@
-# Sentra Minimarket — Smart Retail Demo V3
+# Sentra Minimarket Digital — Demo V4 (Tugas Sekolah)
 
-Website statis satu toko dengan tipografi Plus Jakarta Sans, tata letak responsif, dan tema biru–putih–kuning. Buka `index.html` di browser atau gunakan URL deploy Vercel (framework: Other / output root).
+Website demo satu toko yang menampilkan 30 SKU dengan foto referensi kemasan, keranjang, kasir tunai simulasi, antrean suara, struk, WhatsApp, laporan CSV/XLSX, dan panel produk berbasis localStorage.
 
-## Yang tersedia
-- Katalog 30 SKU data contoh, pencarian, kategori, pengurutan, filter stok.
-- Kasir tunai simulasi, keranjang, nominal bayar, kembalian, struk cetak (58 mm).
-- Antrean Menunggu → Dipanggil → Dilayani → Selesai, panggilan bahasa Indonesia menggunakan Web Speech API.
-- Tombol WhatsApp toko nomor +62 857-1497-9430 serta draf konfirmasi transaksi demo, **tidak mengirim pesan otomatis**.
-- Laporan transaksi tersimpan lokal, tanggal berdasarkan Asia/Jakarta, top produk, stok rendah, ekspor CSV dan XLSX (XLSX bergantung pada CDN eksternal).
-- Admin katalog lokal: tambah, edit, hapus, unggah foto kompresi setelah centang pernyataan hak pakai.
-- Backup dan restore JSON data demo, serta reset data contoh.
+**Website:** https://sentra-minimarket-digital.vercel.app/
+
+## Foto produk
+- Katalog menggunakan **30 URL gambar eksternal** dari situs produsen dan penjual, bukan salinan foto yang diunggah ke GitHub.
+- Semua foto punya tautan asal dalam [PHOTO_SOURCES.csv](./PHOTO_SOURCES.csv), beserta varian/ukuran yang digunakan untuk pencocokan.
+- Tekan gambar produk untuk memperbesar, dan gunakan tautan sumber untuk meninjau asal fotonya.
+- Jika situs asal memblokir gambar (hotlink), browser menampilkan placeholder cadangan.
+- Gambar ini dipasang untuk demo tugas; **hak publikasinya belum diverifikasi**. Penggunaan untuk tugas sekolah tidak otomatis memberi hak untuk menerbitkan ulang foto pada website publik.
+
+## Penggunaan
+Buka `index.html` dalam browser dengan koneksi internet atau gunakan URL Vercel di atas. Pilih item pada katalog, simulasikan pembayaran tunai, cetak struk, lihat laporan, dan coba panggilan antrean setelah mengaktifkan suara browser.
 
 ## Batasan penting
-**Bukan aplikasi kasir produksi.** Penyimpanan di `localStorage` browser; tidak ada backend, autentikasi/otorisasi admin, validasi server, sinkronisasi perangkat, backup server, audit log, atau pengamanan transaksi. Harga dan stok hanyalah contoh. **QRIS asli sengaja dinonaktifkan** karena belum ada provider dan verifikasi webhook. Placeholder tidak boleh disamakan dengan foto produk asli berizin. Upload foto hanya untuk konten yang hak publikasinya dimiliki pengelola. Browser Text-to-Speech memerlukan izin interaksi dan tidak bisa menjamin suara tanpa jeda. Hasil uji otomatis browser tidak setara pengujian transaksi produksi atau printer thermal fisik.
+- Harga, stok, dan transaksi semuanya **contoh**, disimpan hanya di localStorage perangkat yang digunakan, tanpa database server atau autentikasi aman.
+- Pembayaran QRIS sungguhan dan callback provider **belum diimplementasikan**.
+- Tombol WhatsApp menyusun pesan ke **085714979430**, bukan pengiriman otomatis.
+- Browser Text-to-Speech dapat memiliki jeda; nol latensi tidak dapat dijamin.
+- Ekspor XLSX memerlukan pustaka CDN pihak ketiga.
+- Versi ini **belum layak untuk transaksi produksi**.
 
-## Pengujian manual
-1. Buka halaman, tambah produk, cek keranjang dan nominal.
-2. Bayar simulasi tunai, cek stok berkurang, struk dan laporan.
-3. Filter tanggal laporan, unduh CSV/XLSX.
-4. Ambil nomor antrean, aktifkan suara, panggil, ubah status dan selesaikan.
-5. Edit harga/stok dan unggah foto hanya jika punya izin, uji reload.
-6. Backup JSON, ubah data, restore, lalu verifikasi lagi.
-
-## Lanjutan menuju produksi
-Gunakan backend Postgres/Supabase atau setara, role-based access control, server-side transaction commit atomik, audit logs, payment gateway QRIS sandbox dan signature verifier, manajemen aset berizin, dan uji printer/HP asli.
-
-## Verifikasi versi V3
-- HTML dan JavaScript berhasil diperiksa secara lokal.
-- Playwright Chromium desktop dan mobile: 30 kartu produk, keranjang, pembayaran tunai simulasi, struk, laporan/CSV, antrean, edit produk, dan persistensi localStorage **lulus**.
-- Uji printer fisik, transaksi QRIS nyata, pengiriman WA oleh provider dan pengalaman aksesibilitas lintas-perangkat **belum dilakukan**.
-- GitHub `JackAss-789/tugas` merupakan sumber file; deploy Vercel menggunakan unggahan file langsung karena integrasi GitHub lintas-akun belum diberikan izin. Pembaruan GitHub tidak otomatis men-deploy Vercel.
+## Bukti teknis
+- HTML dikirim ke GitHub dan Vercel; deployment Vercel `READY`.
+- Syntax JavaScript lolos `node --check`.
+- Uji browser live menemukan 30 kartu foto dan zoom produk pertama berfungsi; satu foto eksternal dilaporkan gagal dimuat pada sesi itu dan perlu ditinjau.
+- Alur transaksi menyeluruh pada rilis V4 belum diverifikasi ulang terhadap deployment baru.
