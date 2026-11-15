@@ -1,23 +1,24 @@
-# Sentra Minimarket Digital V5 — Demo Tugas Sekolah
+# Sentra Minimarket — Versi Pribadi V6
 
-Website demo: https://sentra-minimarket-digital.vercel.app/
+Website: https://sentra-minimarket-digital.vercel.app/
 
-## Kasir dan struk bersuara
-Pilih barang di katalog, buka Kasir, masukkan uang diterima lalu tekan **Simpan Transaksi Tunai Demo**. Sesudah data tersimpan, Web Speech API akan mencoba mengucapkan total tagihan, uang diterima, kembalian, dan terima kasih dalam Bahasa Indonesia. Tombol **Tes suara** membantu mengaktifkan suara browser lebih dulu, dan **Ulangi Suara Struk** memutar ulang; gunakan kontrol kecepatan atau matikan suara otomatis sesuai kebutuhan. TTS tergantung perangkat/browser, jadi latensi 0 tidak dapat dijamin.
+## Akses pribadi
+Website Vercel harus dilindungi oleh **Vercel Authentication** untuk akun pemilik yang tergabung dalam team proyek; jangan menganggap kode PIN di browser sebagai proteksi autentikasi. Akses bisa meminta login Vercel. Jika Anda menjalankan `index.html` dari ZIP di komputer sendiri, tidak ada autentikasi jaringan karena ini murni file lokal. Kode sumber pada GitHub belum tentu bersifat privat.
 
-## Fitur
-- 30 produk contoh dengan foto referensi eksternal dan zoom
-- Katalog, kategori, pencarian, keranjang dan stok demo
-- Kasir tunai simulasi, diskon nominal, pajak simulasi opsional, dan kembalian
-- Struk transaksi, cetak lewat browser (58 mm / 80 mm) dan Save to PDF dari dialog cetak
-- Riwayat transaksi, pembatalan demo satu kali dengan pengembalian stok serta omzet bersih
-- Laporan CSV/XLSX (XLSX membutuhkan CDN), daftar produk terlaris, stok rendah
-- Suara antrean Bahasa Indonesia, ambil nomor, panggil ulang, layani, selesai
-- WhatsApp penyusunan pesan ke 085714979430 (pengguna mengirim sendiri)
-- Admin produk demo, unggah gambar, cadangan dan pemulihan JSON di browser
+## Penggunaan pertama
+1. Login ke Vercel untuk membuka alamat situs, atau buka ZIP lokal.
+2. Di **Produk & Pengaturan**, atur nama toko dan nomor WhatsApp, lalu koreksi harga dan stok **semua produk yang akan dipakai**. Katalog awal menggunakan harga/stok ilustrasi, bukan harga toko sungguhan.
+3. Masuk **Beranda**, pilih barang dan tekan **Kasir**. Pembayaran tunai simulasi menghitung kembalian, mengurangi stok lokal, menyimpan struk dan catatan laporan.
+4. Tekan **Tes suara** sekali agar browser bisa mengaktifkan TTS, lalu saat transaksi disimpan total, nominal uang dan kembalian dibacakan. Suara tergantung dukungan browser dan pengaturan perangkat; tidak ada jaminan nol delay.
+5. Gunakan **Cetak / Simpan PDF** melalui dialog printer atau **Laporan** untuk ekspor CSV/XLSX.
+6. Unduh **Backup data JSON** rutin setelah transaksi dari tombol cepat di header. Data hanya tersimpan di browser/perangkat masing-masing, tidak sinkron antarperangkat; membersihkan data browser dapat menghapusnya.
+7. Pada Chrome/Edge, tombol **Pasang aplikasi** dapat muncul untuk menambahkan aplikasi ke layar utama; bila tidak muncul, gunakan menu browser **Tambahkan ke Layar Utama**. Offline shell tersedia setelah berkunjung dalam keadaan login dan tersambung internet; foto produk eksternal, font, dan XLSX CDN dapat tetap membutuhkan internet.
 
-## Bukti uji V5
-Node --check PASS. Playwright Chromium in-memory PASS untuk 30 produk, transaksi contoh: subtotal Rp5.000, diskon Rp1.000, pajak contoh 11% Rp440, total Rp4.440, bayar Rp10.000, kembali Rp5.560; struk, event suara, replay, 80 mm, pembatalan satu kali, laporan bersih Rp0, data persisten pada localStorage dan panggilan antrean; tidak ada JavaScript runtime error. **Pengujian suara menggunakan mock SpeechSynthesis, bukan uji suara fisik speaker**. Audio di Android/iOS, printer fisik, dan alur QRIS real belum diuji.
+## Batasan
+- Ini alat lokal untuk **penggunaan pribadi/tugas dan transaksi tunai yang dicatat manual**, bukan sistem POS aman siap produksi. Tidak ada database bersama atau autentikasi aplikasi tersendiri, audit server, dan transaksi tidak aman dari pengubahan data di browser.
+- QRIS nyata, webhook pembayaran, pembayaran elektronik, refund uang sungguhan, dan sinkronisasi otomatis tidak tersedia; tidak ada status lunas QRIS palsu.
+- Sebagian foto produk berasal dari URL pihak ketiga yang dapat gagal/hilang; hak publikasinya belum terverifikasi, lihat `PHOTO_SOURCES.csv`.
+- Browser Text-to-Speech dan printer fisik perlu diverifikasi pada perangkat yang digunakan.
 
-## Batasan yang belum selesai
-Ini bukan POS produksi: harga/stok hanya simulasi, transaksi tersimpan pada localStorage browser tanpa database bersama, autentikasi dan keamanan backend. **QRIS riil, webhook sah dan refund dana nyata belum terintegrasi**; opsi QRIS dinonaktifkan alih-alih berpura-pura berhasil. Foto produk eksternal bisa gagal dimuat, dan izin publikasi sumber belum terverifikasi (lihat PHOTO_SOURCES.csv). Jangan gunakan untuk menerima pembayaran sungguhan.
+## Pengujian
+V6: Playwright Chromium (set_content) PASS: 30 produk, checkout tunai, diskon/pajak, pembatalan, suara mock, antrean, pengaturan toko, WhatsApp format, backup, dan layout seluler tanpa overflow; tidak ada error JS. Instalasi PWA, suara fisik, printer fisik, dan proteksi Vercel diverifikasi terpisah.
